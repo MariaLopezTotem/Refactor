@@ -1,0 +1,17 @@
+{
+  "name": "refactor",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "@types/node": "18.13.0",
+    "jest": "^26.4.2",
+    "jest-each": "^26.4.2"
+  },
+  "dependencies": {
+  },
+  "keywords": [],
+  "description": ""
+}
