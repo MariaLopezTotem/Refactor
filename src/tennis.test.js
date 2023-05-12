@@ -1,5 +1,4 @@
 "use strict";
-
 var each = require("jest-each").default;
 var getScore1 = require("./tennis1");
 var getScore2 = require("./tennis2");
