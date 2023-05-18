@@ -1,53 +1,53 @@
 "use strict";
+const _ = require('lodash');
 
 function getScore(P1point, P2point) {
-  var score = "";
+  let score = "";
 
-  if (P1point === P2point && P1point < 3) {
-    if (P1point === 0) {
-      score = "Love";
-    }
-    if (P1point === 1) {
-      score = "Fifteen";
-    }
-    if (P1point === 2) {
-      score = "Thirty";
-    }
-    score += "-All";
+  if (_.isEqual(P1point, P2point)) {
+    if(P1point < 3){
+      if (_.isEqual(P1point, 0)) {
+        score = process.env.Love;
+      }
+      if (_.isEqual(P1point, 1)) {
+        score = process.env.Fifteen;
+      }
+      if (_.isEqual(P1point, 2)) {
+        score = process.env.Thirty;
+      }
+      score += process.env.Minus_All;
+    }else if(P1point > 2){
+      score = process.env.deuce;
+    }    
   }
-  if (P1point === P2point && P1point > 2) {
-    score = "Deuce";
+  let P1res;
+  let P2res;
+  if (P1point > 0 && _.isEqual(P2point, 0)) {
+    if (_.isEqual(P1point, 1)) {
+      P1res = process.env.Fifteen;
+    }
+    if (_.isEqual(P1point, 2)) {
+      P1res = process.env.Thirty;
+    }
+    if (_.isEqual(P1point, 3)) {
+      P1res =  process.env.Forty;
+    }
+    P2res = process.env.Love;
+    score = `${P1res}-${P2res}`;
   }
-
-  var P1res;
-  var P2res;
-  if (P1point > 0 && P2point === 0) {
-    if (P1point === 1) {
-      P1res = "Fifteen";
+  if (P2point > 0 && _.isEqual(P1point, 0)) {
+    if (_.isEqual(P2point, 1)) {
+      P2res = process.env.Fifteen;
     }
-    if (P1point === 2) {
-      P1res = "Thirty";
+    if (_.isEqual(P2point, 2)) {
+      P2res = process.env.Thirty;
     }
-    if (P1point === 3) {
-      P1res = "Forty";
+    if (_.isEqual(P2point, 3)) {
+      P2res = process.env.Forty;
     }
 
-    P2res = "Love";
-    score = P1res + "-" + P2res;
-  }
-  if (P2point > 0 && P1point === 0) {
-    if (P2point === 1) {
-      P2res = "Fifteen";
-    }
-    if (P2point === 2) {
-      P2res = "Thirty";
-    }
-    if (P2point === 3) {
-      P2res = "Forty";
-    }
-
-    P1res = "Love";
-    score = P1res + "-" + P2res;
+    P1res = process.env.Love;
+    score = `${P1res}-${P2res}`;
   }
 
   if (P1point > P2point && P1point < 4) {

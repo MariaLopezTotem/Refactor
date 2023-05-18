@@ -1,6 +1,5 @@
 "use strict";
 const _ = require('lodash');
-require('dotenv').config();
 
 function getScore(m_score1, m_score2) {
   let score = "";

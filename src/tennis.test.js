@@ -1,5 +1,7 @@
 "use strict";
 var each = require("jest-each").default;
+require('dotenv').config();
+
 var getScore1 = require("./tennis1");
 var getScore2 = require("./tennis2");
 var getScore3 = require("./tennis3");
