@@ -32,7 +32,7 @@ function getScore(m_score1, m_score2) {
       score = process.env.winForPlayer2;
     }
   } else {
-    for (var i = 1; i < 3; i++) {
+    for (let i = 1; i < 3; i++) {
       if (_.isEqual(i, 1)) {
         tempScore = m_score1;
       } else {
