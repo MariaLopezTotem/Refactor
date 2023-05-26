@@ -19,34 +19,13 @@ function getScore(P1point, P2point) {
   }
 
   if ((P1point > P2point) && (P1point < 4)) {//TODO A FUNCTION
-    if (_.isEqual(P1point, 2)) {
-      P1res = process.env.Thirty;
-    }
-    if (_.isEqual(P1point, 3)) {
-      P1res = process.env.Forty;
-    }
-    if (_.isEqual(P2point, 1)) {
-      P2res = process.env.Fifteen;
-    }
-    if (_.isEqual(P2point, 2)) {
-      P2res = process.env.Thirty;
-    }
+    P1res = validateThirtyForty(P1point, P1res);
+    P2res = validateFifteenThirty(P2point, P2res);
     score = `${P1res}-${P2res}`;
   }
-
   if ((P2point > P1point) && (P2point < 4)) { //TODO A FUNCTION
-    if (_.isEqual(P2point, 2)) {
-      P2res = process.env.Thirty;
-    }
-    if (_.isEqual(P2point, 3)) {
-      P2res = process.env.Forty;
-    }
-    if (_.isEqual(P1point, 1)) {
-      P1res = process.env.Fifteen;
-    }
-    if (_.isEqual(P1point, 2)) {
-      P1res = process.env.Thirty;
-    }
+    P2res = validateThirtyForty(P2point, P2res);
+    P1res = validateFifteenThirty(P1point, P1res);
     score =`${P1res}-${P2res}`;
   }
 
@@ -95,6 +74,26 @@ function getPlayerScore(point){
   } else if (_.isEqual(point, 3)) {
     return process.env.Forty;
   }
+}
+
+function validateThirtyForty(PlayerPoint, P1res){
+  if (_.isEqual(PlayerPoint, 2)) {
+    P1res = process.env.Thirty;
+  }
+  if (_.isEqual(PlayerPoint, 3)) {
+    P1res = process.env.Forty;
+  }
+  return P1res
+}
+
+function validateFifteenThirty(PlayerPoint, P2res){
+  if (_.isEqual(PlayerPoint, 1)) {
+    P2res = process.env.Fifteen;
+  }
+  if (_.isEqual(PlayerPoint, 2)) {
+    P2res = process.env.Thirty;
+  }
+  return P2res
 }
 
 
