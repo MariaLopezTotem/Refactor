@@ -1,19 +1,20 @@
 "use strict";
+const _ = require('lodash');
 
 function getScore(p1, p2) {
-  var s;
-  let p1N = "player1";
-  let p2N = "player2";
-  if (p1 < 4 && p2 < 4 && p1 + p2 < 6) {
-    var p = ["Love", "Fifteen", "Thirty", "Forty"];
-    s = p[p1];
-    return p1 === p2 ? s + "-All" : s + "-" + p[p2];
+  let score;
+  let player1 = "player1";
+  let player2 = "player2";
+  if ((p1 < 4) && (p2 < 4) && (p1 + p2 < 6)) {
+    let puntuations = ["Love", "Fifteen", "Thirty", "Forty"];
+    score = puntuations[p1];
+    return _.isEqual(p1, p2) ? `${score}-All`: `${score}-${puntuations[p2]}`
   } else {
-    if (p1 === p2) {
-      return "Deuce";
+    if (_.isEqual(p1, p2)) {
+      return process.env.deuce;
     }
-    s = p1 > p2 ? p1N : p2N;
-    return (p1 - p2) * (p1 - p2) === 1 ? "Advantage " + s : "Win for " + s;
+    score = p1 > p2 ? player1 : player2;
+    return _.isEqual((p1 - p2) * (p1 - p2), 1) ? `Advantage ${score}` : `Win for ${score}`;
   }
 }
 
