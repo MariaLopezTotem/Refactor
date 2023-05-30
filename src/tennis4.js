@@ -1,5 +1,5 @@
 "use strict";
-
+const _ = require('lodash');
 class TennisGame {
   constructor(player1, player2) {
     this.server = player1;
@@ -30,12 +30,14 @@ class TennisGame {
 
   receiverHasAdvantage() {
     return (
-      this.receiverScore >= 4 && this.receiverScore - this.serverScore === 1
+      this.receiverScore >= 4 && this.receiverScore - _.isEqual(this.serverScore, 1)
     );
   }
 
-  serverHasAdvantage() {
-    return this.serverScore >= 4 && this.serverScore - this.receiverScore === 1;
+  serverHasAdvantage() { 
+    return (
+      this.serverScore >= 4 && this.serverScore - this.receiverScore === 1
+    );
   }
 
   receiverHasWon() {
@@ -52,7 +54,7 @@ class TennisGame {
     return (
       this.serverScore >= 3 &&
       this.receiverScore >= 3 &&
-      this.serverScore === this.receiverScore
+      _.isEqual(this.serverScore, this.receiverScore)       
     );
   }
 }
@@ -64,13 +66,13 @@ class TennisResult {
   }
 
   format() {
-    if ("" === this.receiverScore) {
+    if (_.isEmpty(this.receiverScore)) {
       return this.serverScore;
     }
-    if (this.serverScore === this.receiverScore) {
-      return this.serverScore + "-All";
+    if (_.isEqual(this.serverScore, this.receiverScore)) {
+      return `${this.serverScore}-All`;
     }
-    return this.serverScore + "-" + this.receiverScore;
+    return `${this.serverScore}-${this.receiverScore}`;
   }
 }
 
@@ -82,7 +84,7 @@ class Deuce {
 
   getResult() {
     if (this.game.isDeuce()) {
-      return new TennisResult("Deuce", "");
+      return new TennisResult(process.env.Deuce, "");
     }
     return this.nextResult.getResult();
   }
@@ -96,7 +98,7 @@ class GameServer {
 
   getResult() {
     if (this.game.serverHasWon()) {
-      return new TennisResult("Win for " + this.game.server, "");
+      return new TennisResult(`Win for ${this.game.server}`, "");
     }
     return this.nextResult.getResult();
   }
@@ -110,7 +112,8 @@ class GameReceiver {
 
   getResult() {
     if (this.game.receiverHasWon()) {
-      return new TennisResult("Win for " + this.game.receiver, "");
+      return new TennisResult(`Win for ${this.game.receiver}`, "");
+      
     }
     return this.nextResult.getResult();
   }
@@ -124,7 +127,7 @@ class AdvantageServer {
 
   getResult() {
     if (this.game.serverHasAdvantage()) {
-      return new TennisResult("Advantage " + this.game.server, "");
+      return new TennisResult(`Advantage ${this.game.server}`, "");
     }
     return this.nextResult.getResult();
   }
@@ -138,7 +141,7 @@ class AdvantageReceiver {
 
   getResult() {
     if (this.game.receiverHasAdvantage()) {
-      return new TennisResult("Advantage " + this.game.receiver, "");
+      return new TennisResult(`Advantage ${this.game.receiver}`, "");
     }
     return this.nextResult.getResult();
   }
